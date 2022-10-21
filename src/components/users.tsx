@@ -1,17 +1,8 @@
-import { Home } from "@mui/icons-material";
 import {
   Box,
-  Button,
-  Grid,
-  IconButton,
-  InputAdornment,
-  InputBase,
-  Paper,
-  TextField,
   Typography,
 } from "@mui/material";
 import { CardBox } from "./card";
-import { maxDrawerWidth, minDrawerOnTablet } from "./drawer";
 import { Display } from "../utils/device";
 import {
   BoxUsersSVG,
@@ -19,11 +10,16 @@ import {
   UsersWithLoansSVG,
   UsersWithSavingsSVG,
 } from "../resource/icons";
-import MyTable from "./table";
 import DataTable from "./dataTable";
+import React from "react";
+
 export const Users = (props: { width: any; }) => {
   const contentWidth = props.width;
-  const { isTablet, isDesktop } = Display();
+  const { isDesktop } = Display();
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  });
   return (
     <>
       <Typography
@@ -45,7 +41,7 @@ export const Users = (props: { width: any; }) => {
           flexDirection: "column",
           justifyContent: "start",
           alignItems: "flex-start",
-          width: contentWidth,
+          width: "100%",
           gap: 2,
         }}
         >
@@ -67,7 +63,7 @@ export const Users = (props: { width: any; }) => {
               justifyContent: "space-between",
               alignItems: "stretch",
               overflow: "scroll",
-              width: isDesktop ? contentWidth : "max-content",
+              width: isDesktop ? '100%' : "max-content",
               ...(!isDesktop && { gap: 3 }),
             }}
           >
@@ -100,6 +96,7 @@ export const Users = (props: { width: any; }) => {
         <Box>
           <DataTable 
               contentWidth={contentWidth}
+              dataUrl="https://6270020422c706a0ae70b72c.mockapi.io/lendsqr/api/v1/users"
           />  
         </Box>
         <Box></Box> {/* last gap */}

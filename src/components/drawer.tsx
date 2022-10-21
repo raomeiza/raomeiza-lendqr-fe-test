@@ -13,8 +13,9 @@ import {
 } from "@mui/material";
 import { ExpandMore, } from "@mui/icons-material";
 import { Display } from "../utils/device";
-import links, { Link } from "../data/links";
+import myNavLinks, { Link as myLinkInterface } from "../data/links";
 import { OrgSVG } from "../resource/icons";
+import { Link } from "react-router-dom";
 export const maxDrawerWidth = 240;
 export const minDrawerOnTablet = 64;
 
@@ -111,7 +112,9 @@ export default function MiniDrawer(props: {
                 height: 20,
                 mb: 1.5,
                 ml: 1,
-                opacity: props.open ? 0.9 : 0,
+                // if the drawer is closed, the subheader should be hidden
+                // except on desktop
+                opacity: props.open ? 0.9 : isTablet ? 0 : 0.9,
                 color: "text.primary",
               }}
             >
@@ -123,6 +126,7 @@ export default function MiniDrawer(props: {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
+                    gap: 1,
                   }}
                 >
                   <OrgSVG /> Change Organization <ExpandMore />
@@ -132,7 +136,7 @@ export default function MiniDrawer(props: {
           }
         />
 
-        {links.map((link: Link) => (
+        {myNavLinks.map((link: myLinkInterface) => (
           <List
             key={link.name}
             component="nav"
@@ -160,7 +164,7 @@ export default function MiniDrawer(props: {
               </ListSubheader>
             }
           >
-            {link.entries.map((entry) => (
+            {link.entries.map((entry: { title: string; link: any; icon: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) => (
               <ListItem
                 key={entry.title}
                 disablePadding
@@ -168,8 +172,10 @@ export default function MiniDrawer(props: {
               >
                 <ListItemButton
                   key={entry.title}
-                  component="a"
-                  href={`${link.base_link}${entry.link}`}
+                  component={Link}
+                  to={entry.link}
+                  // set this as selected if the current path starts with the link followed by a slash
+                  selected={window.location.pathname.startsWith(entry.link)}
                 >
                   <ListItemIcon
                     sx={{

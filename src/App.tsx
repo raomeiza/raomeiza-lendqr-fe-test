@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './components/home';
+import Index from './components/router';
 import theme from './components/theme';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
@@ -10,7 +10,7 @@ function App() {
       
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme={true} />
-      <Home />
+      <Index />
     </ThemeProvider>
   );
 }

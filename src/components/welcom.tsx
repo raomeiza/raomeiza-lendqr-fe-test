@@ -4,28 +4,102 @@ import {
   Typography,
   TextField,
   InputAdornment,
-  IconButton,
   Button,
+  Modal,
+  CircularProgress,
 } from "@mui/material";
 import * as React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import intro from "../resource/intro.svg";
 import logo from "../resource/logo.svg";
+import { useAuth } from "./contexts/authContext";
+import { Display } from "../utils/device";
+
+// create a regex for email
+const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+// create a regex for password. it must contain at least 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 function Welcome() {
-  const [values, setValues] = React.useState({});
+  const navigate = useNavigate();
+  const [values, setValues] = React.useState({ email: "", password: "" });
   const [inputType, setInputType] = React.useState("password");
+  const [showLoading, setShowLoading ] = React.useState(false)
+  
+  const from = useLocation().state?.from || "/users";
+  const [errors, setErrors] = React.useState({ email: "", password: "" });
+  // @ts-ignore
+  const { signin, user } = useAuth();
   const handleChange = (element: string, value: string) => {
     setValues({ ...values, [element]: value });
   };
-  return (
-    <Grid container spacing={0} sx={{ height: "100vh", position: 'relative' }}>
-      <img src={logo} alt="logo" sizes="150%"
-          style={{
-            position: "absolute",
-            top: 40,
-            left: 40,
+
+  const LoadingModal = () => {
+    return (
+      <Modal
+        open={showLoading}
+        onClose={() => setShowLoading(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "rgba(0,0,0,0.5)",
+        }}
+      >
+        <CircularProgress
+          sx={{
+            width: 100,
+            height: 100,
+            color: "primary.main",
           }}
         />
+      </Modal>
+    );
+  };
+  const { isDesktop } = Display();
+  const handleSubmit = () => {
+    if (values.email && values.password) {
+      let validEmail = emailRegex.test(values.email);
+      let validPassword = passwordRegex.test(values.password);
+      if (validEmail && validPassword) {
+        signin({ email: values.email, password: values.password });
+        setShowLoading(true)
+        setTimeout(() => {
+          if (user) {
+            navigate(from);
+          }
+          setShowLoading(false)
+          }, 1000);
+      } else {
+        setErrors({
+          email: validEmail ? "" : "Invalid email",
+          password: validPassword ? "" : "Invalid password",
+        });
+      }
+    } else {
+      setErrors({
+        email: values.email ? "" : "Email is required",
+        password: values.password ? "" : "Password is required",
+      });
+    }
+  };
+  return (
+    <Grid container spacing={0} sx={{ height: "100vh", position: "relative" }}>
+      <LoadingModal />
+      <img
+        src={logo}
+        alt="logo"
+        sizes="150%"
+        style={{
+          position: "absolute",
+          top: 40,
+          left: 40,
+        }}
+      />
       <Grid
         item
         xs={12}
@@ -38,9 +112,9 @@ function Welcome() {
           justifyContent: "center",
           alignItems: "center",
           overflow: "hidden",
+          ...(!isDesktop && { display: "none" }),
         }}
       >
-        
         <img src={intro} alt="intro" />
       </Grid>
       <Grid
@@ -53,67 +127,72 @@ function Welcome() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          ...(!isDesktop && { padding: 2 }),
         }}
       >
-        <Box component="form">
-          <Typography variant="h2" sx={{ mt: 2, mb: 2 }}>
-            Welcome to the world of
+        <Box
+          component="form"
+          fontWeight={600}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
+          <Typography variant="h2" sx={{ mt: 2, mb: 2, textAlign: "left", fontWeight: 600 }}>
+            Welcome!
           </Typography>
-          <Typography variant="h5" sx={{ mb: 2 }}>
-            <Box component="span" sx={{ color: "#F9A826" }}>
-              Financio oiu
-            </Box>
+          <Typography
+            variant="h5"
+            sx={{ mb: 5, textAlign: "left", opacity: 0.6}}
+          >
+            <Box component="span">Enter details to continue</Box>
           </Typography>
           <TextField
-            id="outlined-basic"
+            id="email-input"
             label="Email"
             variant="outlined"
+            helperText={errors.email}
+            error={errors.email !== ""}
             sx={{ width: "100%", mb: 2 }}
             onChange={(e) => handleChange("email", e.currentTarget.value)}
           />
           <TextField
-            id="outlined-basic"
+            id="password input"
             label="Password"
             variant="outlined"
+            type={inputType}
+            helperText={errors.password}
+            error={errors.password !== ""}
             sx={{ width: "100%", mb: 2 }}
-            inputProps={{
-              type: "password",
+            onChange={(e) => handleChange("password", e.currentTarget.value)}
+            InputProps={{
               endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() =>
-                      setInputType(
-                        inputType === "password" ? "text" : "password"
-                      )
-                    }
-                    onMouseDown={(event) => event.preventDefault()}
-                    edge="end"
-                    onChange={(e) =>
-                      handleChange("email", e.currentTarget.value)
-                    }
+                <InputAdornment position="end" sx={{visibility: values.password.length ? 'visible' : 'hidden'}}>
+                  <Box component={'span'} onClick={(e) =>{
+                    e.preventDefault();
+                    setInputType(inputType === "password" ? "text" : "password")}
+                  }
                   >
-                    {inputType === "password" ? "Show" : "Hide"}
-                  </IconButton>
+                    {inputType === "password" ? 'SHOW' : 'HIDE'}
+                  </Box>
                 </InputAdornment>
               ),
             }}
-          />
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            <Box component="span" sx={{ color: "#F9A826" }}>
-              Forgot Password?
-            </Box>
+                />
+          <Typography variant="h6" sx={{ mb: 2, alingText: 'left' }}>
+            <Box component="span">Forgot Password?</Box>
           </Typography>
-          <Button variant="contained" sx={{ width: "100%", mb: 2 }}>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{ width: "100%", }}
+            type="submit"
+            role="submit"
+            onClick={(e) => {
+              handleSubmit();
+            }}
+          >
             Login
-          </Button>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            <Box component="span" sx={{ color: "#F9A826" }}>
-              Don't have an account?
-            </Box>
-          </Typography>
-          <Button variant="contained" sx={{ width: "100%", mb: 2 }}>
-            Sign Up
           </Button>
         </Box>
       </Grid>

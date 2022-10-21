@@ -22,23 +22,11 @@ export const SearchBar = () => {
       type="search"
       variant="outlined"
       size="small"
-      sx={{
-        "& .MuiOutlinedInput-root": {
-          borderRadius: 2,
-          height: 40,
-          width: { xs: 200, sm: 300, md: 400, lg: 500 },
-        },
-      }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
               aria-label="search"
-              sx={{
-                borderRadius: "0 8px 8px 0",
-                width: 56,
-                backgroundColor: "secondary.main",
-              }}
               onClick={() => {
                 console.log("search");
               }}
@@ -109,7 +97,6 @@ export default function MyAppBar(props: { toggleDrawer: any; }) {
                     aria-label="menu"
                     sx={{ mr: 2 }}
                     onClick={() => {
-                      console.log("menu");
                       toggleDrawer();
                     }}
                   >
@@ -144,7 +131,6 @@ export default function MyAppBar(props: { toggleDrawer: any; }) {
                   aria-label="search"
                   sx={{ fontSize: 40, borderStyle: "solid", borderWidth: 1 }}
                   onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    console.log(typeof setPopoverAnchorEl)
                     setPopoverAnchorEl(e.currentTarget)
                   }}
                   onMouseLeave={() => {
