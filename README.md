@@ -5,12 +5,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## demonstration
 this project is hosted with github pages [here](https://raomeiza.github.io/lendsqr/)
-Note: to login, 
-   You must type in a valid email address in the email field
-   In the password field, password must
-      1. Not be less than 8 characters
-      2. Contain at least an upper case letter
-      3. Contains atleast a number
+### Note: to login, 
+####You must type in a valid email address in the email field
+
+####In the password field, password must
+
+1. Not be less than 8 characters
+2. Contain at least an upper case letter
+3. Contains atleast a number
 
 ## Available Scripts
 
