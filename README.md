@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# Lendsr fullstack test - README
+# This file is part of the Lendsr fullstack test project by <a href="mailto:blesseth.omeiza@gmail.com">Omeiza</a>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## demonstration
+this project is hosted with github pages [here](https://raomeiza.github.io/lendsqr/)
 
 ## Available Scripts
 
