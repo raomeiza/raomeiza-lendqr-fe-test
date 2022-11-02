@@ -15,6 +15,18 @@ In the password field, password must
 3. Contains at least a number
 4. Contains at least a special character
 
+## Features
+some of the defining features of this app are:
+
+1. fully optimized for mobile, tablet and desktop views
+2. cross browser compatible
+3. PWA enabled i.e can be installed in both android, tablet and desktop computers as a standalone application
+4. uses the react-mui templating framework
+
+## Drawbacks
+some of the drawbacks(difference between the app built and the figma template given as guide) of this application are:
+1. The icons the app uses(as specified in the figma design) are majorly font-awesome duotone which is a paid varsion so i could'nt get some of them as i'm not a subscriber
+
 ## Available Scripts
 
 In the project directory, you can run:
