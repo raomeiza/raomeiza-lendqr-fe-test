@@ -164,7 +164,7 @@ export default function MiniDrawer(props: {
               </ListSubheader>
             }
           >
-            {link.entries.map((entry: { title: string; link: any; icon: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) => (
+            {link.entries.map((entry: { title: string; link: string; icon: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) => (
               <ListItem
                 key={entry.title}
                 disablePadding
@@ -175,7 +175,7 @@ export default function MiniDrawer(props: {
                   component={Link}
                   to={entry.link}
                   // set this as selected if the current path starts with the link followed by a slash
-                  selected={window.location.pathname.startsWith(entry.link)}
+                  selected={window.location.pathname.startsWith(`/lendsqr${entry.link}`)}
                 >
                   <ListItemIcon
                     sx={{

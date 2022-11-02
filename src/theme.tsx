@@ -101,7 +101,7 @@ export default createTheme({
               left: 0,
               top: 0,
               bottom: 0,
-              width: '7px',
+              width: '5px',
               backgroundColor: theme.palette.secondary.main,
             },
             backgroundColor: theme.palette.secondary.light,
@@ -171,10 +171,3 @@ export default createTheme({
     },
   },
 });
-// position: absolute;
-// left: 47.71%;
-// right: 48.4%;
-// top: 30%;
-// bottom: 30%;
-
-// background: #39CDCC;

@@ -8,8 +8,8 @@ import {
   ReactPortal,
 } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Display } from "../utils/device";
-import axiosClient, { requestToken, isCancelError } from "../utils/requestClient";
+import { Display } from "../../utils/device";
+import axiosClient, { requestToken, isCancelError } from "../../utils/requestClient";
 
 const iconSVG = () => {
   return (

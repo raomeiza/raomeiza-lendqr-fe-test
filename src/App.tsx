@@ -1,6 +1,6 @@
 import React from 'react';
 import Index from './components/router';
-import theme from './components/theme';
+import theme from './theme';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import './App.scss';

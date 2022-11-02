@@ -1,11 +1,11 @@
 import * as React from "react";
-import MiniDrawer, { minDrawerOnTablet, maxDrawerWidth } from "./drawer";
-import MyAppBar from "./appBar";
+import MiniDrawer, { minDrawerOnTablet, maxDrawerWidth } from "../components/drawer";
+import MyAppBar from "../components/appBar";
 import { Box, Grid } from "@mui/material";
 import { Display } from "../utils/device";
-import { Users } from "./users";
+import { Users } from "./users/users";
 import { Route, Routes } from "react-router-dom";
-import { User } from "./user";
+import { User } from "./users";
 import NotFound from "./404";
 
 export default function Base() {

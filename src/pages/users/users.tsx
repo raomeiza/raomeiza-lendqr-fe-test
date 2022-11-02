@@ -2,15 +2,15 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { CardBox } from "./card";
-import { Display } from "../utils/device";
+import { CardBox } from "../../components/card";
+import { Display } from "../../utils/device";
 import {
   BoxUsersSVG,
   ActiveUsersSVG,
   UsersWithLoansSVG,
   UsersWithSavingsSVG,
-} from "../resource/icons";
-import DataTable from "./dataTable";
+} from "../../resource/icons";
+import DataTable from "../../components/dataTable";
 import React from "react";
 
 export const Users = (props: { width: any; }) => {
