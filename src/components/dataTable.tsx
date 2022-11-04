@@ -11,6 +11,7 @@ import {
 import mockData from "../resource/mock.json";
 import {
   Box,
+  CircularProgress,
   IconButton,
   MenuItem,
   Pagination,
@@ -106,6 +107,7 @@ const defaultColumns: GridColDef[] = [
     width: 80,
     editable: false,
     sortable: false,
+    disableColumnMenu: true,
     renderCell: (params) => {
       let { id } = params.row;
       const EditButton = () => {
@@ -255,25 +257,33 @@ function CustomPagination() {
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        flexDirection: "row",
-        alignItems: "stretch",
         mt: 2,
         overflowX: "scroll",
         height: "50px",
       }}
     >
+      <Box
+        sx={{
+          minWidth: "max-content",
+          width: '100%',
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 1,
+        }}
+      >
       {/* rows per page */}
-      <Box>
-        Showing:{" "}
+      <Box >
+        Showing
+        {/* :{" "}
         {`${page * pageSize + 1} - ${page * pageSize + pageSize} of ${
           defaultData.length
-        }`}
+        }`} */}
         {/* select input for selecting rows per page */}
         <Select
           sx={{
-            ml: 2,
+            mx: 1,
             // align to start
             alignSelf: "flex-start",
             backgroundColor: "white",
@@ -294,6 +304,7 @@ function CustomPagination() {
             </MenuItem>
           ))}
         </Select>
+        out of {defaultData.length}
       </Box>
       {/* pagination */}
 
@@ -307,11 +318,71 @@ function CustomPagination() {
           "& .MuiPaginationItem-root": {
             borderRadius: 2,
           },
+          // active page button
+          "& .Mui-selected": {
+            backgroundColor: "secondary.main",
+            opacity: 0.8,
+          },
+        }}
+      />
+    </Box>
+    </Box>
+  );
+}
+
+const CustomLoadingOverlay = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        width: "100%",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        position: "absolute",
+        top: 0,
+        left: 0,
+      }}
+    >
+      <CircularProgress
+        sx={{
+          color: "secondary.main",
         }}
       />
     </Box>
   );
-}
+};
+
+const CustomErrorOverlay = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        width: "100%",
+        minHeight: '200px',
+        backgroundColor: "rgba(0,0,0,0.5)",
+        position: "absolute",
+        top: 0,
+        left: 0,
+      }}
+    >
+      <Typography
+        sx={{
+          color: "white",
+          fontSize: "1.5rem",
+        }}
+      >
+        Error Loading Data
+      </Typography>
+    </Box>
+  );
+};
 
 export default function DataTable(props: {
   contentWidth: string | number;
@@ -386,13 +457,6 @@ export default function DataTable(props: {
         rows={rows}
         columns={columns}
         pageSize={rowsPerPage}
-        error={
-          error ? (
-            <Typography variant="body1" color="error">
-              {errorText}
-            </Typography>
-          ) : null
-        }
         loading={loading}
         // @ts-ignore
         errorOverlay={
@@ -416,10 +480,11 @@ export default function DataTable(props: {
         }}
         disableSelectionOnClick
         disableColumnSelector
-        disableColumnMenu
         disableDensitySelector
         components={{
           Footer: CustomPagination,
+          LoadingOverlay: CustomLoadingOverlay,
+          ErrorOverlay: CustomErrorOverlay,
         }}
       />
     </Box>

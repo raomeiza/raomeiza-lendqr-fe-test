@@ -101,7 +101,7 @@ const Login = (props: { setShowLoading: any; }) => {
         ),
       }}
           />
-    <Typography variant="h6" sx={{ mb: 2, alingText: 'left' }}>
+    <Typography variant="h6" sx={{ mb: 2, textAlign: 'left', color: 'secondary.main' }}>
       <Box component="span">Forgot Password?</Box>
     </Typography>
     <Button

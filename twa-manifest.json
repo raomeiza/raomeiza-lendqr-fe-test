@@ -1,0 +1,47 @@
+{
+  "packageId": "io.github.raomeiza.twa",
+  "host": "raomeiza.github.io",
+  "name": "Lendsqr",
+  "launcherName": "lendsqr",
+  "display": "standalone",
+  "themeColor": "#39CDCC",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#FFFFFF",
+  "enableNotifications": true,
+  "startUrl": "/lendsqr/",
+  "iconUrl": "https://raomeiza.github.io/lendsqr/android-icon-512x512.png",
+  "maskableIconUrl": "https://raomeiza.github.io/lendsqr/android-icon-512x512.png",
+  "monochromeIconUrl": "https://raomeiza.github.io/lendsqr/android-icon-48x48.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "C:\\web\\raomeiza-lendqr-fe-test\\android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "1",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://raomeiza.github.io/lendsqr/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {
+    "locationDelegation": {
+      "enabled": true
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://raomeiza.github.io/lendsqr/",
+  "minSdkVersion": 19,
+  "orientation": "default",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "appVersion": "1"
+}
