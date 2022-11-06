@@ -3,20 +3,26 @@ import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import oops from '../resource/Oops-404-Error-with-a-broken-robot-rafiki.svg'
-const NotFound = (props: { paddingLeft?: string | number, staticDrawerWidth?: string | number; }) => {
+const NotFound = (props: { paddingLeft?: string | number, staticDrawerWidth?: string | number, isDesktop?: boolean; }) => {
   const navigate = useNavigate();
-  const { paddingLeft, staticDrawerWidth } = props;
+  const { paddingLeft, staticDrawerWidth, isDesktop } = props;
   return (
     <Box
       sx={{
         maxHeight: '100vh',
         overflow: 'clip',
+        // if there is padding left i.e in desktop and tablet
+        // where we have static side bar, pad the 404 content
+        // acordingly else 
+        // leave as is
         ...(!paddingLeft && { pl: paddingLeft }),
         '& img': {
-          // if staticDrawer is provided, hight to the image
-          // becouse its already optimised for mobile
-          // else give it a heigth of 100%
-          ...(!staticDrawerWidth && { height: '100%' }),
+          // if the display is desktop i.e isDesktop is true
+          // set the image height to 100% so as to make the
+          // image well contained
+          // else remove the heigth as the image is optimized for
+          // mobile and tablet
+          ...(isDesktop && { height: '100%' }),
           objectFit: 'contain',
           objectPosition: 'center',
           overflow: 'clip',

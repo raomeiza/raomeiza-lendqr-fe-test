@@ -53,7 +53,7 @@ export default function Base() {
           <Routes>
             <Route path="/" element={<Users width={ContentWidth} />} />
             <Route path="/user/:id" element={<User width={ContentWidth} />} />
-            <Route path="*" element={<NotFound paddingLeft={paddingLeft} staticDrawerWidth={isMobile ? 0 : isDesktop ? maxDrawerWidth : minDrawerOnTablet} />} />
+            <Route path="*" element={<NotFound paddingLeft={paddingLeft} staticDrawerWidth={isMobile ? 0 : isDesktop ? maxDrawerWidth : minDrawerOnTablet} isDesktop={isDesktop} />} />
           </Routes>
         </Grid>
       </Box>
